@@ -2,6 +2,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import GenericAPIView
 
 from apps.users.models import User
 from apps.users.serializers import SignupSerializer, LoginSerializer
@@ -11,7 +12,7 @@ class SignupView(generics.CreateAPIView):
     """
     Sign up view.
     """
-    authentication_classes = [AllowAny]
+    permission_classes = [AllowAny]
     serializer_class = SignupSerializer
 
     def post(self, request, *args, **kwargs):
@@ -53,10 +54,10 @@ class LoginView(generics.GenericAPIView):
     """
     Login view
     """
-    authentication_classes = [AllowAny]
     serializer_class = LoginSerializer
+    permission_classes = [AllowAny]
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         email = serializer.validated_data.get('email')

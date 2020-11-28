@@ -1,0 +1,324 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>SAT report</title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 24px;
+            font-family: 'Open Sans', 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #222;
+        }
+
+        .main {
+            padding-bottom: 12.5em;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .invoice-box table td {
+            padding: 5px 0;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+            width: 40%;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td, .invoice-box table tr.grey td {
+            background: #f8f8f8;
+            border-bottom: 1px solid #ddd;
+            font-weight: 600;
+            {#padding: 10px 0;#}
+            {#padding-left: 5px;#}
+        }
+
+        tr.dark {
+            font-weight: 600;
+        }
+
+        td.wider {
+            min-width: 6em;
+        }
+
+        p.text-muted {
+            margin: 0 auto;
+            margin-top: 5px;
+            opacity: 0.5;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+        .address {
+            width: auto;
+            text-align: center;
+            margin: 20px 0 20px 0;
+        }
+
+        .address p {
+            font-size: 13px;
+            line-height: 1;
+            font-weight: 700;
+            position: relative;
+            /* top: 4em; */
+        }
+
+        .invoice-box table tr.top table td.blue-box {
+            border: 2px solid #ced8e2c9;
+            padding: 3em;
+            width: 45%;
+            min-width: 45%;
+            padding: 0px 1em;
+        }
+
+        .invoice-box table tr.top table td.blue-box p {
+            font-size: 12px;
+            margin: 15px auto;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        span.wide {
+            padding-right: 0em;
+            min-width: 8em;
+            display: inline-block;
+        }
+
+        table.bordered {
+            border-collapse: collapse;
+        }
+
+        table.bordered tr {
+            border-top: 1px solid #999
+        }
+
+        table.bordered tr.no-border {
+            border: 0;
+        }
+
+        table.bordered td {
+            padding-top: 20px;
+        }
+
+        tr.p-0 {
+            padding: 1em 0 !important;
+        }
+
+        tr.p-0 h3 {
+            padding: 1em 0 0;
+        }
+
+        tr.p-0 td {
+            padding: 0 !important;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin: 0px auto 7px;
+            font-weight: 600;
+        }
+
+        h3.x-border {
+            {#border-top: 1px solid #ccc;#}
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            margin: 1.5em auto 10px;
+        }
+
+        table.right {
+            width: 50%;
+            margin-left: auto;
+        }
+
+        .px-2 .dark td {
+            padding-right: 50px !important;
+        }
+
+        table.right h3.x-border {
+            border-top: 0;
+            border-bottom: 1px solid #ccc;
+            padding-top: 5px;
+            margin-top: 0px;
+        }
+
+        table.right tr td:last-child {
+            text-align: right;
+        }
+
+        .footer {
+            border-top: 1px solid #ccc;
+            padding-top: 5px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #888;
+            font-weight: 600;
+        }
+        table.blue-table td{
+        	padding-bottom: 0 !important;
+        	width: 50%;
+        }
+        table.blue-table p{
+        	margin: 5px 0 5px 0 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+    <div class="main">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td colspan="1" class="title">
+                                <h2 style="color: #133154; margin-bottom: 20px; margin-top: 5px">SAT</h2>
+                                <!-- static data -->
+                                <p style="font-size: 20px;font-weight:600; text-align: center; margin-top: 0">Report</p>
+                                <div class="address">
+                                    <p>Created on: {{ assessment.created_date|date:"D d M Y" }}</p>
+                                    <p>Completed Days: {{ assessment.completed_days }}</p>
+                                </div>
+{#                                <p style="font-size: 14px;font-weight:600; text-align: center; margin-bottom: 5px">SAT INFO#}
+{#                                	no : 91 9876543210#}
+{#                                </p>#}
+                            </td>
+
+                            <td colspan="2" class="blue-box" style="background-color:aliceblue">
+                            <hr/>
+                                <table class="blue-table">
+                     				<tr>
+                     					<td>
+                     						<p>Date</p>
+                     					</td>
+                     					<td>
+                     						<p>{{ today|date:"D d M Y" }}</p>
+                     					</td>
+                     				</tr>
+                     				<tr>
+                     					<td>
+                     						<p>Name</p>
+                     					</td>
+                     					<td>
+                     						<p>{{ user.first_name }} {{ user.last_name }}</p>
+                     					</td>
+                     				</tr>
+                     				<tr>
+                     					<td>
+                     						<p>Email</p>
+                     					</td>
+                     					<td>
+                     						<p>{{ user.email }}</p>
+                     					</td>
+                     				</tr>
+                     			</table>
+                                <p style="text-align: center; margin-top: 50px;">contact@satinfo.com</p>
+                                <p style="text-align: center;">+91987654321</p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+        {% for date_obj, answer_obj in answers.items %}
+            <table>
+            <tr>
+            <td colspan="100%"><h3 class="x-border">Date: {{ date_obj|date:"D d M Y" }}</h3></td>
+            </tr>
+
+            <tr class="dark">
+                <td colspan="2">Question</td>
+                <td class="wider" colspan="2">Submitted Answer</td>
+            </tr>
+
+            {% for obj in answer_obj %}
+            <tr class="grey">
+                <td colspan="2">
+                    <p>{{ obj.question.que_text }}</p>
+                </td>
+                <td class="wider" colspan="2">{% if obj.answer == 1 %} Yes {% else %} No {% endif %}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+         </table>
+
+        </table>
+    </div>
+
+        <div class="footer">
+            <p>Self Assessment Tool – contact@satinfo.com</p>
+        </div>
+    </div>
+
+</body>
+</html>

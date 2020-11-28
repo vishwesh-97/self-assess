@@ -7,3 +7,5 @@ django-cors-headers==3.5.0
 django-environ==0.4.5
 django-rest-swagger==2.2.0 # https://github.com/marcgibbons/django-rest-swagger
 psycopg2==2.8.3 --no-binary psycopg2  # https://github.com/psycopg/psycopg2
+WeasyPrint==47
+tweepy==3.9.0

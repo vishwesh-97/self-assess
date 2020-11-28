@@ -23,7 +23,8 @@ schema_view = get_swagger_view(title='self-assessment API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('apps.users.urls'))
+    path('api/', include('apps.users.urls')),
+    path('api/', include('apps.assess.urls'))
 ]
 
 # swagger url

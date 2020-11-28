@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import environ
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -50,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
 
     # local apps
-    'apps.users'
+    'apps.users',
+    'apps.assess'
 ]
 
 MIDDLEWARE = [
@@ -71,7 +73,9 @@ ROOT_URLCONF = 'assessment.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -171,3 +175,33 @@ REST_FRAMEWORK = {
 # ---------------- REST_FRAMEWORK settings ----------------
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+# -----------------_Email settings --------------------
+# SMTP username: Your Gmail address
+# SMTP password: Your Gmail password
+# SMTP server address: smtp.gmail.com
+# Gmail SMTP port (TLS): 587
+# SMTP port (SSL): 465
+# SMTP TLS/SSL required: yes
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sat.info8117@gmail.com'
+EMAIL_HOST_PASSWORD = '8117@satinfo'
+EMAIL_PORT = 587
+FROM_EMAIL = 'sat.info8117@gmail.com'
+
+# --------------------twitter credentials-------------------
+consumer_key = "ik26TghbAz0NLMMHv8bvbTwgV"
+consumer_secret = "bmdlMg9bqvjrSnq8KRHt1OPG6WgiqstMlzW45TBPRFFsTYtqSw"
+access_key = "1303743972959907840-GQpz6HbrkAr5BVm2Fqdeh0EM0IyxGS"
+access_secret = "XyqV7uK11wsl9IGXaxYCQC5oS3LqlegZzZgGCjdmUvlyh"
+
+# ------------------watson credentials---------------
+tone_api_key = '6E6_UbW83z2oCIcFZPKL0-r0LLcq661o1k53YlP8XQxK'
+tone_url = 'https://api.eu-gb.tone-analyzer.watson.cloud.ibm.com/instances/3106f266-1599-4254-861b-2926f42c3bed'
+
+nlu_api_key = 'MIEe405f57MQ7yiMQxb04lTi6M8wofjfnP1Lpv3qn4eG'
+nlu_url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a7eec1f1-f31e-4553-88b1-37810d814e55'

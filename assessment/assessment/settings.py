@@ -188,20 +188,20 @@ CORS_ALLOW_ALL_ORIGINS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sat.info8117@gmail.com'
-EMAIL_HOST_PASSWORD = '8117@satinfo'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = 587
-FROM_EMAIL = 'sat.info8117@gmail.com'
+FROM_EMAIL = ''
 
 # --------------------twitter credentials-------------------
-consumer_key = "ik26TghbAz0NLMMHv8bvbTwgV"
-consumer_secret = "bmdlMg9bqvjrSnq8KRHt1OPG6WgiqstMlzW45TBPRFFsTYtqSw"
-access_key = "1303743972959907840-GQpz6HbrkAr5BVm2Fqdeh0EM0IyxGS"
-access_secret = "XyqV7uK11wsl9IGXaxYCQC5oS3LqlegZzZgGCjdmUvlyh"
+consumer_key = ""
+consumer_secret = ""
+access_key = ""
+access_secret = ""
 
 # ------------------watson credentials---------------
-tone_api_key = '6E6_UbW83z2oCIcFZPKL0-r0LLcq661o1k53YlP8XQxK'
-tone_url = 'https://api.eu-gb.tone-analyzer.watson.cloud.ibm.com/instances/3106f266-1599-4254-861b-2926f42c3bed'
+tone_api_key = ''
+tone_url = ''
 
-nlu_api_key = 'MIEe405f57MQ7yiMQxb04lTi6M8wofjfnP1Lpv3qn4eG'
-nlu_url = 'https://api.eu-gb.natural-language-understanding.watson.cloud.ibm.com/instances/a7eec1f1-f31e-4553-88b1-37810d814e55'
+nlu_api_key = ''
+nlu_url = ''

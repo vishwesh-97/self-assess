@@ -38,6 +38,10 @@ class TodayQuestionSerializer(serializers.Serializer):
         today_ans_count = UserAnswer.objects.filter(user_id=user_id, assessment_id=assessment_id,
                                                     answer_datetime__date=today.date()).count()
         que_count = AssessmentQuestion.objects.all().count()
+
+        if que_count == 0:
+            raise serializers.ValidationError({"no_question": "No questions available for the assessment!"})
+
         if today_ans_count == que_count:
             raise serializers.ValidationError({"submitted_msg": "You have already submitted Answers for today!"})
         return attrs

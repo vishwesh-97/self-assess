@@ -5,6 +5,7 @@ from django.conf import settings
 from rest_framework import status
 from rest_framework.test import APIRequestFactory
 
+from apps.assess.models import AssessmentQuestion
 from utils.tests import TestsMixin
 from django.urls import reverse
 
@@ -35,6 +36,11 @@ class APIBasicTests(TestsMixin, TestCase):
         "last_name": FULL_NAME
     }
 
+    ASSESSMENT_DATA = {
+        "name": "TestAssess",
+        "total_days": 5
+    }
+
     def setUp(self):
         # self.init()
         self.init_data()
@@ -44,6 +50,8 @@ class APIBasicTests(TestsMixin, TestCase):
         self.login_url = reverse('users:user-login')
         self.register_url = reverse('users:user-signup')
         # self.user_url = reverse('rest_user_details')
+        self.assessment_url = reverse('assess:user-assessment')
+        self.assessment_question_url = reverse('assess:today-question')
 
     def _login(self):
         payload = {
@@ -210,3 +218,90 @@ class APIBasicTests(TestsMixin, TestCase):
         data.pop('last_name')
 
         self.post(self.register_url, data=data, status_code=400)
+
+    def test_assessment_creation_without_user(self):
+        data = self.ASSESSMENT_DATA.copy()
+        # user and authentication is not provided
+        self.post(self.assessment_url, data=data, status_code=401)
+
+    def test_assessment_creation_with_user_login(self):
+        data = self.ASSESSMENT_DATA.copy()
+        user = self.create_user()
+        data["user"] = user.id
+
+        payload = {
+            "email": self.EMAIL,
+            "password": self.PASSWORD
+        }
+        self.post(self.login_url, data=payload, status_code=200)
+        self.token = self.response.data['token']
+
+        self.post(self.assessment_url, data=data, status_code=201)
+
+    def test_assessment_with_user_without_login(self):
+        data = self.ASSESSMENT_DATA.copy()
+        user = self.create_user()
+        data["user"] = user.id
+
+        # authentication detail is not provided
+        self.post(self.assessment_url, data=data, status_code=401)
+
+    def test_assessment_question_retrieval_without_user(self):
+        data = self.ASSESSMENT_DATA.copy()
+        user = self.create_user()
+        data["user"] = user.id
+
+        payload = {
+            "email": self.EMAIL,
+            "password": self.PASSWORD
+        }
+        self.post(self.login_url, data=payload, status_code=200)
+        self.token = self.response.data['token']
+
+        self.post(self.assessment_url, data=data, status_code=201)
+        assessment_id = self.response.data["id"]
+
+        payload = {
+            "assessment": assessment_id
+        }
+        self.post(self.assessment_question_url, data=payload, status_code=400)
+
+    def test_assessment_question_retrieval_without_assessment(self):
+        user = self.create_user()
+
+        payload = {
+            "email": self.EMAIL,
+            "password": self.PASSWORD
+        }
+        self.post(self.login_url, data=payload, status_code=200)
+        self.token = self.response.data['token']
+
+        payload = {
+            "user": user.id
+        }
+        self.post(self.assessment_question_url, data=payload, status_code=400)
+
+    def test_assessment_question_retrieval_valid(self):
+        data = self.ASSESSMENT_DATA.copy()
+        user = self.create_user()
+        data["user"] = user.id
+
+        payload = {
+            "email": self.EMAIL,
+            "password": self.PASSWORD
+        }
+        self.post(self.login_url, data=payload, status_code=200)
+        self.token = self.response.data['token']
+
+        self.post(self.assessment_url, data=data, status_code=201)
+        assessment_id = self.response.data["id"]
+
+        payload = {
+            "assessment": assessment_id,
+            "user": user.id
+        }
+
+        AssessmentQuestion.objects.create(que_text="This is my test question?")
+
+        # No question available in database
+        self.post(self.assessment_question_url, data=payload, status_code=200)
